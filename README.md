@@ -50,9 +50,9 @@ bash ./scripts/demo_pan_cpu.sh
 #bash ./scripts/facades_pan.sh [GPU_ID]
 ```
 - ./scripts/ の中身をみてもらえば分かりますが，データセットごとに変わるのは(ほとんど)以下だけです．
-  - ```--dataroot```: データセットの場所
-  - ```--which_direction```: 左→右 or 右→左
-  - ```--pan_mergin_m```: PANのpositive margin m
+  - ```--dataroot```: データセットの場所  
+  - ```--which_direction```: 左→右 or 右→左  
+  - ```--pan_mergin_m```: PANのpositive margin m  
   - ```--niter```: 学習率一定のエポック数．niter_decayと合わせて総エポック数 (この実験では全て200)
   - ```--niter_decay```: 学習率を減衰させるエポック数．niterと合わせて総エポック数 (この実験では全て200)
   - ```--batchSize```: バッチサイズ (この実験では全て4)  
