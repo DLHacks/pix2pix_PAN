@@ -53,7 +53,7 @@ bash ./scripts/demo_pan_cpu.sh
   - ```--dataroot```: データセットの場所  
   - ```--which_direction```: 左→右 or 右→左  
   - ```--pan_mergin_m```: PANのpositive margin m  
-  - ```--niter```: 学習率一定のエポック数．niter_decayと合わせて総エポック数 (この実験では全て200)
+  - ```--niter```: 学習率一定のエポック数．niter_decayと合わせて総エポック数 (この実験では全て200)
   - ```--niter_decay```: 学習率を減衰させるエポック数．niterと合わせて総エポック数 (この実験では全て200)
   - ```--batchSize```: バッチサイズ (この実験では全て4)  
 
@@ -70,5 +70,5 @@ python evaluation.py --imgs_path [path/to/result_images]
 
 |            | facades | maps        |cityscapes   |
 |:-----------|:--------|:------------|:------------|
-| pix2pix    |  **27.99**  | **31.62**   | **32.11** |
-| PAN        |  **27.99**  | 30.62       | 30.43     |
+| pix2pix    |  28.00  | **31.62**   | **32.11** |
+| PAN        |  **28.04**  | 30.62       | 30.43     |
