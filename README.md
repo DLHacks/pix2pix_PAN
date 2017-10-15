@@ -67,6 +67,7 @@ python evaluation.py --imgs_path [path/to/result_images]
 ```
 
 **PSNR**(なぜかpix2pixの方が良い結果になりました…)
+
 |            | facades | maps        |cityscapes   |
 |:-----------|:--------|:------------|:------------|
 | pix2pix    |  **27.99**  | **31.62**   | **32.11** |
