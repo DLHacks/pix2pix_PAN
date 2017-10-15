@@ -12,10 +12,10 @@ class Pix2PixModel(BaseModel):
     def name(self):
         return 'Pix2PixModel'
 
-    # 使う
     def initialize(self, opt):
         BaseModel.initialize(self, opt)
         self.isTrain = opt.isTrain
+
         # define tensors
         self.input_A = self.Tensor(opt.batchSize, opt.input_nc,
                                    opt.fineSize, opt.fineSize)
@@ -23,8 +23,7 @@ class Pix2PixModel(BaseModel):
                                    opt.fineSize, opt.fineSize)
 
         # load/define networks
-        # init_type: ザビエルかhe(kaiming)
-        # ngf: 一番フィルタ幅が小さい層のconvフィルタの（幅かチャンネル数?)
+        # init_type: he(kaiming) or xavier
         self.netG = networks.define_G(opt.input_nc, opt.output_nc, opt.ngf,
                                       opt.which_model_netG, opt.norm, not opt.no_dropout, opt.init_type, self.gpu_ids)
         if self.isTrain:
@@ -35,7 +34,7 @@ class Pix2PixModel(BaseModel):
 
         if not self.isTrain or opt.continue_train:
             self.load_network(self.netG, 'G', opt.which_epoch)
-            # 途中からTrainの場合
+            # train from pre-trained weights
             if self.isTrain:
                 self.load_network(self.netD, 'D', opt.which_epoch)
 
@@ -63,7 +62,6 @@ class Pix2PixModel(BaseModel):
             networks.print_network(self.netD)
         print('-----------------------------------------------')
 
-    # 使う
     def set_input(self, input):
         AtoB = self.opt.which_direction == 'AtoB'
         input_A = input['A' if AtoB else 'B']
@@ -90,13 +88,10 @@ class Pix2PixModel(BaseModel):
 
     def backward_D(self):
         # Fake
-        # stop backprop to the generator by detaching fake_B
-
-        # queryはいらないので，torch.cat((self.real_A, self.fake_B), 1)するだけでいい
-        # fake_AB = self.fake_AB_pool.query(torch.cat((self.real_A, self.fake_B), 1))
         fake_AB = torch.cat((self.real_A, self.fake_B), 1)
-        # print(fake_AB.data.shape) # torch.Size([1, 6, 256, 256])
-        # detach: volatileにしている
+        #fake_AB --> torch.Size([1, 6, 256, 256])
+
+        # detach: make fake_AB volatile
         self.pred_fake = self.netD.forward(fake_AB.detach())
         self.loss_D_fake = self.criterionGAN(self.pred_fake, False)
 
@@ -107,8 +102,6 @@ class Pix2PixModel(BaseModel):
 
         # Combined loss
         self.loss_D = (self.loss_D_fake + self.loss_D_real) * 0.5
-
-        # TODO: ここにParceptual Adversarial Loss追加(loss_Dに足し算)
 
         self.loss_D.backward()
 
@@ -125,7 +118,6 @@ class Pix2PixModel(BaseModel):
 
         self.loss_G.backward()
 
-    # 使う
     def optimize_parameters(self):
         self.forward()
 
@@ -137,7 +129,6 @@ class Pix2PixModel(BaseModel):
         self.backward_G()
         self.optimizer_G.step()
 
-    # 使う
     def get_current_errors(self):
         return OrderedDict([('G_GAN', self.loss_G_GAN.data[0]),
                             ('G_L1', self.loss_G_L1.data[0]),
@@ -145,7 +136,6 @@ class Pix2PixModel(BaseModel):
                             ('D_fake', self.loss_D_fake.data[0])
                             ])
 
-    # testでつかう（結果の画像表示）
     def get_current_visuals(self):
         real_A = util.tensor2im(self.real_A.data)
         fake_B = util.tensor2im(self.fake_B.data)
