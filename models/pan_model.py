@@ -145,14 +145,18 @@ class PanModel(BaseModel):
         self.backward_D()
         self.optimizer_D.step()
 
-        # update G 3 times
-        for i in range(3):
-            self.optimizer_G.zero_grad()
-            if i == 2:
-                self.backward_G(retain=False)
-            else:
-                self.backward_G(retain=True)
-            self.optimizer_G.step()
+        # # update G 3 times
+        # for i in range(3):
+        #     self.optimizer_G.zero_grad()
+        #     if i == 2:
+        #         self.backward_G(retain=False)
+        #     else:
+        #         self.backward_G(retain=True)
+        #     self.optimizer_G.step()
+
+        self.optimizer_G.zero_grad()
+        self.backward_G()
+        self.optimizer_G.step()
 
     def get_current_errors(self):
         return OrderedDict([('G_GAN', self.loss_G_GAN.data[0]),
