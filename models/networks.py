@@ -336,18 +336,6 @@ class NLayerDiscriminator(nn.Module):
             return self.model(input)
 
     def add_intermediate_output(self, conv, input, output):
-        # input is a tuple of packed inputs
-        # output is a Variable. output.data is the Tensor we are interested
-
-        # print('Inside ' + conv.__class__.__name__ + ' forward')
-        # print('')
-        # print('input: ', type(input))
-        # print('input[0]: ', type(input[0]))
-        # print('output: ', type(output))
-        # print('')
-        # print('input size:', input[0].size())
-        # print('output size:', output.data.size())
-        # print('output norm:', output.data.norm())
         self.intermediate_outputs.append(Variable(output.data, requires_grad=False))
 
     def get_intermediate_outputs(self):
