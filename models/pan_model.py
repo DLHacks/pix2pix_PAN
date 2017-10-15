@@ -17,10 +17,6 @@ class PanModel(BaseModel):
 
         self.isTrain = opt.isTrain
 
-        # hyper parameters
-        self.pan_lambdas = opt.pan_lambdas
-        self.pan_mergin_m = opt.pan_mergin_m
-
         # define tensors
         self.input_A = self.Tensor(opt.batchSize, opt.input_nc,
                                    opt.fineSize, opt.fineSize)
@@ -44,6 +40,11 @@ class PanModel(BaseModel):
                 self.load_network(self.netD, 'D', opt.which_epoch)
 
         if self.isTrain:
+
+            # hyper parameters
+            self.pan_lambdas = opt.pan_lambdas
+            self.pan_mergin_m = opt.pan_mergin_m
+
             self.old_lr = opt.lr
             # define loss functions
             self.criterionGAN = networks.GANLoss(tensor=self.Tensor)
