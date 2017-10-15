@@ -53,14 +53,14 @@ bash ./scripts/demo_pan_cpu.sh
   - ```--dataroot```: データセットの場所
   - ```--which_direction```: 左→右 or 右→左
   - ```--pan_mergin_m```: PANのpositive margin m
-  - ```--niter```: 学習率一定のエポック数．niter_decayと合わせて総エポック数
-  - ```--niter_decay```: 学習率を減衰させるエポック数．niterと合わせて総エポック数
-  - ```--batchSize```: バッチサイズ  
+  - ```--niter```: 学習率一定のエポック数．niter_decayと合わせて総エポック数 (この実験では全て200)
+  - ```--niter_decay```: 学習率を減衰させるエポック数．niterと合わせて総エポック数 (この実験では全て200)
+  - ```--batchSize```: バッチサイズ (この実験では全て4)  
 
 ## Results
 - ./checkpoints に最新の重み, 途中の重みが保存されます．
 - ./results に生成結果が保存されます．
-- 出力結果 [Google Drive Link ](https://drive.google.com/drive/folders/0B4YWLm9F9kgpeVRhUEQyYzBCZkk?usp=sharing)
+- 出力結果 [Google Drive Link ](https://drive.google.com/drive/folders/0B4YWLm9F9kgpeVRhUEQyYzBCZkk?usp=sharing) ダウンロードしてhtmlを開くとinput, 生成画像, ground truthが並んで表示されます．
 - PSNR(dB)での評価は以下．
 ```
 python evaluation.py --imgs_path [path/to/result_images]
