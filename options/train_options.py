@@ -4,6 +4,7 @@ from .base_options import BaseOptions
 class TrainOptions(BaseOptions):
     def initialize(self):
         BaseOptions.initialize(self)
+        self.parser.add_argument('--pan_lambdas', nargs='+', type=float, default=[5.0, 1.0, 1.0, 1.0, 5.0], help='lambdas of PAN_loss')
         self.parser.add_argument('--display_freq', type=int, default=100, help='frequency of showing training results on screen')
         self.parser.add_argument('--print_freq', type=int, default=100, help='frequency of showing training results on console')
         self.parser.add_argument('--save_latest_freq', type=int, default=5000, help='frequency of saving the latest results')
