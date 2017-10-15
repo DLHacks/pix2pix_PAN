@@ -60,3 +60,14 @@ bash ./scripts/demo_pan_cpu.sh
 ## Results
 - ./checkpoints に最新の重み, 途中の重みが保存されます．
 - ./results に生成結果が保存されます．
+- 出力結果 [Google Drive Link ](https://drive.google.com/drive/folders/0B4YWLm9F9kgpeVRhUEQyYzBCZkk?usp=sharing)
+- PSNR(dB)での評価は以下．
+```
+python evaluation.py --imgs_path [path/to/result_images]
+```
+
+**PSNR**(なぜかpix2pixの方が良い結果になりました…)
+|            | facades | maps        |cityscapes   |
+|:-----------|:--------|:------------|:------------|
+| pix2pix    |  **27.99**  | **31.62**   | **32.11** |
+| PAN        |  **27.99**  | 30.62       | 30.43     |
