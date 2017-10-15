@@ -15,8 +15,11 @@ class PanModel(BaseModel):
     def initialize(self, opt):
         BaseModel.initialize(self, opt)
 
-        self.pan_mergin_m = opt.pan_mergin_m
         self.isTrain = opt.isTrain
+
+        # hyper parameters
+        self.pan_lambdas = opt.pan_lambdas
+        self.pan_mergin_m = opt.pan_mergin_m
 
         # define tensors
         self.input_A = self.Tensor(opt.batchSize, opt.input_nc,
@@ -109,8 +112,7 @@ class PanModel(BaseModel):
 
         # calc Parceptual Adversarial Loss
         self.loss_PAN = 0
-        lambdas = [5.0, 1.0, 1.0, 1.0, 5.0]
-        for (fake_i, real_i, lam) in zip(fake_inters, real_inters, lambdas):
+        for (fake_i, real_i, lam) in zip(fake_inters, real_inters, self.pan_lambdas):
             self.loss_PAN += self.criterionPAN(fake_i, real_i) * lam
 
         if self.loss_PAN.data[0] > self.pan_mergin_m:
