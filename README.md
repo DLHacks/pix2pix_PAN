@@ -1,6 +1,5 @@
 <img src='imgs_readme/top.jpg' align="center">
 
-<br>
 # pix2pix and PAN(Parceptual Adversarial Networks) in PyTorch
 - Powered by [DL HACKS](http://deeplearning.jp/hacks/)
 - Reference: https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix
