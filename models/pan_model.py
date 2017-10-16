@@ -126,7 +126,7 @@ class PanModel(BaseModel):
 
         self.loss_D.backward()
 
-    def backward_G(self, retain):
+    def backward_G(self, retain=False):
         # First, G(A) should fake the discriminator
         fake_AB = torch.cat((self.real_A, self.fake_B), 1)
         pred_fake = self.netD.forward(fake_AB)
