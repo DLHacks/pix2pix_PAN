@@ -71,4 +71,4 @@ python evaluation.py --imgs_path [path/to/result_images]
 |            | facades | maps        |cityscapes   |
 |:-----------|:--------|:------------|:------------|
 | pix2pix    |  28.00  | **31.62**   | **32.11** |
-| PAN        |  **28.04**  | 30.62       | 30.43     |
+| PAN        |  **28.04**  | 30.52       | 31.52     |
